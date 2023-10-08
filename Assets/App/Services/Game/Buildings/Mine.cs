@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Linq;
-using App.Game.Buildings;
-using App.Game.GameResources;
 using App.Services.Game.Config;
+using App.Services.Game.Enums.Buildings;
+using App.Services.Game.Enums.GameResources;
 using App.Services.PlayerProgress;
 using App.Services.Runners;
 using UnityEngine;

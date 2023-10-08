@@ -1,5 +1,5 @@
 using System;
-using App.Game.GameResources;
+using App.Services.Game.Enums.GameResources;
 
 namespace App.Services.Game.Config.Marketing
 {

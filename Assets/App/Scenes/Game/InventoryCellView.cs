@@ -1,5 +1,5 @@
-using App.Game.GameResources;
 using App.ServiceLocator.Container;
+using App.Services.Game.Enums.GameResources;
 using App.Services.PlayerProgress;
 using UnityEngine;
 using UnityEngine.UI;

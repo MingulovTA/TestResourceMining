@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using App.Game.GameResources;
+using App.Services.Game.Enums.GameResources;
 
 namespace App.Services.Game.Config
 {

@@ -1,4 +1,4 @@
-namespace App.Game.Buildings
+namespace App.Services.Game.Enums.Buildings
 {
     public enum BuildingTypeId
     {

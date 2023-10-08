@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using App.Game.Buildings;
-using App.Game.GameResources;
 using App.ServiceLocator.Container;
 using App.Services.Game;
 using App.Services.Game.Buildings;
+using App.Services.Game.Enums.Buildings;
+using App.Services.Game.Enums.GameResources;
 using App.Services.PlayerProgress;
 using UnityEngine;
 using UnityEngine.UI;

@@ -1,6 +1,4 @@
-using System;
-using System.Linq;
-using App.Game.GameResources;
+using App.Services.Game;
 using UnityEngine;
 
 namespace App.Scenes.Game
@@ -11,7 +9,7 @@ namespace App.Scenes.Game
 
         private void Awake()
         {
-            foreach (var gameResourceId in Enum.GetValues(typeof(GameResourceId)).Cast<GameResourceId>())
+            foreach (var gameResourceId in GameConsts.AllResources)
             {
                 var icv = Instantiate(_cellPrefab, transform);
                 icv.Init(gameResourceId);

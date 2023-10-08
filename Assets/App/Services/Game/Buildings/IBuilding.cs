@@ -1,4 +1,4 @@
-using App.Game.Buildings;
+using App.Services.Game.Enums.Buildings;
 
 namespace App.Services.Game.Buildings
 {

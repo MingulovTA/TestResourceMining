@@ -1,13 +1,9 @@
-using System;
-using System.Linq;
-using App.Game.GameResources;
+using App.Services.Game.Enums.GameResources;
 
 namespace App.Services.Game.Buildings
 {
     public class ForgeCell
     {
-        private static readonly GameResourceId[] allResources = Enum.GetValues(typeof(GameResourceId)).Cast<GameResourceId>().ToArray();
-        
         private GameResourceId _gameResourceId;
         private int _index;
         
@@ -16,9 +12,9 @@ namespace App.Services.Game.Buildings
         public void Select()
         {
             _index++;
-            if (_index >= allResources.Length)
+            if (_index >= GameConsts.AllResources.Count)
                 _index = 0;
-            _gameResourceId = allResources[_index];
+            _gameResourceId = GameConsts.AllResources[_index];
         }
     }
 }

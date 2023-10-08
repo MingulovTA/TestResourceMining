@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using App.Game.Buildings;
 using App.Scenes;
 using App.Services.Game.Buildings;
 using App.Services.Game.Config;
+using App.Services.Game.Enums.Buildings;
 using App.Services.PlayerProgress;
 using App.Services.Popups;
 using App.Services.Runners;
@@ -41,17 +41,17 @@ namespace App.Services.Game
 
         public void StartGame(int minesCount)
         {
+            _playerInventory.Clear();
+            RestoreGame(minesCount);
+        }
+
+        public void RestoreGame(int minesCount)
+        {
             LoadGameConfigIfNeed();
             InitNewGame(minesCount);
             _gameStateId = GameStateId.Game;
             _sceneService.LoadScene(SceneId.Game);
             _playerInventory.OnCoinsChanged += CheckForCompleteGame;
-        }
-
-        public void RestoreGame()
-        {
-            _gameStateId = GameStateId.Game;
-            _sceneService.LoadScene(SceneId.Game);
         }
 
         public void AbortGame()

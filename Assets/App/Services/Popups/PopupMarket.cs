@@ -1,7 +1,7 @@
-using App.Game.Buildings;
 using App.ServiceLocator.Container;
 using App.Services.Game;
 using App.Services.Game.Buildings;
+using App.Services.Game.Enums.Buildings;
 using UnityEngine;
 using UnityEngine.UI;
 

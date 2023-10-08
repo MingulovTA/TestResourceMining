@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using App.Game.GameResources;
+using App.Services.Game;
+using App.Services.Game.Enums.GameResources;
 using UnityEngine;
 
 namespace App.Services.PlayerProgress
@@ -20,11 +21,13 @@ namespace App.Services.PlayerProgress
         public event Action OnCoinsChanged;
         public event Action<GameResourceId> OnInventoryChanged;
 
+        public bool IsEmpty => _coins <= 0 && _resources.All(kvp => kvp.Value <= 0);
+
         public PlayerInventory()
         {
             _data = new PlayerInventoryData();
 
-            foreach (var gameResourceId in Enum.GetValues(typeof(GameResourceId)).Cast<GameResourceId>())
+            foreach (var gameResourceId in GameConsts.AllResources)
             {
                 _resources.Add(gameResourceId,0);
                 _data.Cells.Add(new PlayerInventoryCell(gameResourceId,0));
@@ -40,6 +43,8 @@ namespace App.Services.PlayerProgress
         {
             return _resources[gameResourceId];
         }
+
+   
 
         public void SetResource(GameResourceId gameResourceId, int count)
         {
@@ -67,6 +72,14 @@ namespace App.Services.PlayerProgress
             _coins = coins;
             SaveCoins();
             OnCoinsChanged?.Invoke();
+        }
+
+        public void Clear()
+        {
+            SetCoins(0);
+            foreach (var resourceId in GameConsts.AllResources)
+                _resources[resourceId] = 0;
+            SaveInventory();
         }
 
         private void SaveAll()
