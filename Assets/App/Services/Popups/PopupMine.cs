@@ -9,8 +9,6 @@ namespace App.Services.Popups
 {
     public class PopupMine : BasePopup
     {
-        private const string GAMERESOURCE_ICON_PATH = "ResIcons/";
-        
         [SerializeField] private Button _btnStart;
         [SerializeField] private Button _btnStop;
         [SerializeField] private Image _progressBar;
@@ -56,7 +54,7 @@ namespace App.Services.Popups
             if (_selectedResource!=null)
                 Destroy(_selectedResource);
 
-            _selectedResource = Resources.Load<GameObject>(GAMERESOURCE_ICON_PATH + _mine.GameResourceId);
+            _selectedResource = Resources.Load<GameObject>(GameConsts.GameResourceIconsPath + _mine.GameResourceId);
             _selectedResource = Instantiate(_selectedResource, _btnSelectResource.transform);
         }
 

@@ -9,8 +9,6 @@ namespace App.Services.Popups
 {
     public class PopupMarket : BasePopup
     {
-        private const string GAMERESOURCE_ICON_PATH = "ResIcons/";
-        
         [SerializeField] private Button _btnSell;
         [SerializeField] private Button _btnResource;
         [SerializeField] private Text _price;
@@ -59,7 +57,7 @@ namespace App.Services.Popups
         {
             if (_selectedResource!=null)
                 Destroy(_selectedResource);
-            _selectedResource = Resources.Load<GameObject>(GAMERESOURCE_ICON_PATH + _market.GameResourceId);
+            _selectedResource = Resources.Load<GameObject>(GameConsts.GameResourceIconsPath + _market.GameResourceId);
             _selectedResource = Instantiate(_selectedResource, _btnResource.transform);
         }
     }

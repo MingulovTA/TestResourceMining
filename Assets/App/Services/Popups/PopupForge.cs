@@ -12,8 +12,6 @@ namespace App.Services.Popups
 {
     public class PopupForge : BasePopup
     {
-        private const string GAMERESOURCE_ICON_PATH = "ResIcons/";
-        
         [SerializeField] private List<Button> _btnsResources;
         [SerializeField] private Button _btnResultResource;
         [SerializeField] private Button _btnStop;
@@ -42,8 +40,6 @@ namespace App.Services.Popups
             _playerInventory.OnInventoryChanged += InventoryChangedHandler;
         }
 
-
-
         private void OnDisable()
         {
             _forge.OnWorkingStateUpdated -= UpdateView;
@@ -69,7 +65,7 @@ namespace App.Services.Popups
         {
             if (_prescriptionIcons[i]!=null)
                 Destroy(_prescriptionIcons[i]);
-            _prescriptionIcons[i] = Resources.Load<GameObject>(GAMERESOURCE_ICON_PATH + _forge.Prescription[i]);
+            _prescriptionIcons[i] = Resources.Load<GameObject>(GameConsts.GameResourceIconsPath + _forge.Prescription[i]);
             _prescriptionIcons[i] = Instantiate(_prescriptionIcons[i], _btnsResources[i].transform);
         }
 
@@ -79,7 +75,7 @@ namespace App.Services.Popups
                 Destroy(_resultIcon);
             if (_forge.IsValidPrescription)
             {
-                _resultIcon = Resources.Load<GameObject>(GAMERESOURCE_ICON_PATH + _forge.ResultResource);
+                _resultIcon = Resources.Load<GameObject>(GameConsts.GameResourceIconsPath + _forge.ResultResource);
                 _resultIcon = Instantiate(_resultIcon, _btnResultResource.transform);
             }
 

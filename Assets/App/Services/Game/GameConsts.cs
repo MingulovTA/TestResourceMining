@@ -10,6 +10,8 @@ namespace App.Services.Game
         public static readonly List<GameResourceId> AllResources =
             Enum.GetValues(typeof(GameResourceId)).Cast<GameResourceId>().ToList();
         
+        public const string GameConfigResourcePath = "Configs/GameConfig";
         
+        public const string GameResourceIconsPath = "ResIcons/";
     }
 }

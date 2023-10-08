@@ -17,7 +17,7 @@ namespace App.Services.Game
         private IPlayerInventory _playerInventory;
         private IPopupService _popupService;
         private ICoroutineRunner _coroutineRunner;
-        
+
         private GameData _gameData;
         private GameConfig _gameConfig;
         private GameStateId _gameStateId;
@@ -28,7 +28,7 @@ namespace App.Services.Game
         public GameData GameData => _gameData;
 
         public GameService(
-            ISceneService sceneService, 
+            ISceneService sceneService,
             IPlayerInventory playerInventory,
             IPopupService popupService,
             ICoroutineRunner coroutineRunner)
@@ -63,21 +63,21 @@ namespace App.Services.Game
             _sceneService.LoadScene(SceneId.MainMenu);
         }
 
-        public void CompleteGame()
-        {
-            StopMachine();
-            _playerInventory.OnCoinsChanged -= CheckForCompleteGame;
-            _gameStateId = GameStateId.Menu;
-            _playerInventory.SetCoins(0);
-            if (_popupService.IsAnyPopupOpened)
-                _popupService.ClosePopup();
-            _popupService.Open(PopupId.Win, PopupWinCloseHandler);
-        }
-
         public void LoadMainMenu()
         {
             _gameStateId = GameStateId.Menu;
             _sceneService.LoadScene(SceneId.MainMenu);
+        }
+
+        private void CompleteGame()
+        {
+            StopMachine();
+            _playerInventory.OnCoinsChanged -= CheckForCompleteGame;
+            _gameStateId = GameStateId.Menu;
+            _playerInventory.Clear();
+            if (_popupService.IsAnyPopupOpened)
+                _popupService.ClosePopup();
+            _popupService.Open(PopupId.Win, PopupWinCloseHandler);
         }
 
         private void StopMachine()
@@ -94,27 +94,28 @@ namespace App.Services.Game
 
         private void LoadGameConfigIfNeed()
         {
-            _gameConfig ??= Resources.Load<GameConfigScriptableObject>("Configs/GameConfig").GameConfig;
+            _gameConfig ??= Resources.Load<GameConfigScriptableObject>(GameConsts.GameConfigResourcePath).GameConfig;
         }
 
         private void InitNewGame(int minesCount)
         {
             _gameData = new GameData();
-            
-            _gameData.Buildings.Add(BuildingTypeId.Market,new List<IBuilding>{new Market(0, _gameConfig.Markets[0],_playerInventory)});
-            _gameData.Buildings.Add(BuildingTypeId.Forge,new List<IBuilding>{new Forge(0, _gameConfig.Forges[0],_coroutineRunner, _playerInventory)});
-            _gameData.Buildings.Add(BuildingTypeId.Mine,new List<IBuilding>());
+
+            _gameData.Buildings.Add(BuildingTypeId.Market,
+                new List<IBuilding> {new Market(0, _gameConfig.Markets[0], _playerInventory)});
+            _gameData.Buildings.Add(BuildingTypeId.Forge,
+                new List<IBuilding> {new Forge(0, _gameConfig.Forges[0], _coroutineRunner, _playerInventory)});
+            _gameData.Buildings.Add(BuildingTypeId.Mine, new List<IBuilding>());
 
             for (int i = 0; i < minesCount; i++)
-                _gameData.Buildings[BuildingTypeId.Mine].Add(new Mine(i,_gameConfig.Mines[i],_coroutineRunner, _playerInventory));
+                _gameData.Buildings[BuildingTypeId.Mine]
+                    .Add(new Mine(i, _gameConfig.Mines[i], _coroutineRunner, _playerInventory));
         }
-        
+
         private void CheckForCompleteGame()
         {
             if (IsReadyForComplete)
                 CompleteGame();
         }
-
-        
     }
 }
