@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameConfig
   m_EditorClassIdentifier: 
   GameConfig:
-    CoinsForWin: 100
+    CoinsForWin: 1000
     Mines:
     - MineTime: 1
       GameResourceIds: 030000000400000005000000

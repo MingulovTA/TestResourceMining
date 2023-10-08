@@ -45,6 +45,7 @@ namespace App.Services.Game
             InitNewGame(minesCount);
             _gameStateId = GameStateId.Game;
             _sceneService.LoadScene(SceneId.Game);
+            _playerInventory.OnCoinsChanged += CheckForCompleteGame;
         }
 
         public void RestoreGame()
@@ -55,9 +56,8 @@ namespace App.Services.Game
 
         public void AbortGame()
         {
-            foreach (var gameDataBuilding in _gameData.Buildings)
-            foreach (var building in gameDataBuilding.Value)
-                building.Stop();
+            _playerInventory.OnCoinsChanged -= CheckForCompleteGame;
+            StopMachine();
             _gameData = null;
             _gameStateId = GameStateId.Menu;
             _sceneService.LoadScene(SceneId.MainMenu);
@@ -65,8 +65,12 @@ namespace App.Services.Game
 
         public void CompleteGame()
         {
+            StopMachine();
+            _playerInventory.OnCoinsChanged -= CheckForCompleteGame;
             _gameStateId = GameStateId.Menu;
             _playerInventory.SetCoins(0);
+            if (_popupService.IsAnyPopupOpened)
+                _popupService.ClosePopup();
             _popupService.Open(PopupId.Win, PopupWinCloseHandler);
         }
 
@@ -74,6 +78,13 @@ namespace App.Services.Game
         {
             _gameStateId = GameStateId.Menu;
             _sceneService.LoadScene(SceneId.MainMenu);
+        }
+
+        private void StopMachine()
+        {
+            foreach (var gameDataBuilding in _gameData.Buildings)
+            foreach (var building in gameDataBuilding.Value)
+                building.Stop();
         }
 
         private void PopupWinCloseHandler(PopupCloseResult pcr)
@@ -90,12 +101,18 @@ namespace App.Services.Game
         {
             _gameData = new GameData();
             
-            _gameData.Buildings.Add(BuildingTypeId.Market,new List<IBuilding>{new Market(0, _gameConfig.Markets[0])});
+            _gameData.Buildings.Add(BuildingTypeId.Market,new List<IBuilding>{new Market(0, _gameConfig.Markets[0],_playerInventory)});
             _gameData.Buildings.Add(BuildingTypeId.Forge,new List<IBuilding>{new Forge(0, _gameConfig.Forges[0],_coroutineRunner, _playerInventory)});
             _gameData.Buildings.Add(BuildingTypeId.Mine,new List<IBuilding>());
 
             for (int i = 0; i < minesCount; i++)
                 _gameData.Buildings[BuildingTypeId.Mine].Add(new Mine(i,_gameConfig.Mines[i],_coroutineRunner, _playerInventory));
+        }
+        
+        private void CheckForCompleteGame()
+        {
+            if (IsReadyForComplete)
+                CompleteGame();
         }
 
         

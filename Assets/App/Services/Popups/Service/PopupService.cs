@@ -21,6 +21,8 @@ namespace App.Services.Popups
             DisableContainerIfNeed();
         }
 
+        public bool IsAnyPopupOpened => _popupsQueue.Count > 0;
+
         public void Open(PopupId popupId, Action<PopupCloseResult> closeCallback = null)
         {
             Open<BasePopup>(popupId,closeCallback);

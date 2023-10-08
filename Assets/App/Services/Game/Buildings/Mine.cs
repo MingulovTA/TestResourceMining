@@ -40,7 +40,8 @@ namespace App.Services.Game.Buildings
         
         public void Stop()
         {
-            _coroutineRunner.Stop(_coroutine);
+            if (_isMining)
+                _coroutineRunner.Stop(_coroutine);
         }
 
         public void SelectResource()

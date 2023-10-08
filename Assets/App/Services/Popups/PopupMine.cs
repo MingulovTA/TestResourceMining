@@ -10,6 +10,7 @@ namespace App.Services.Popups
     public class PopupMine : BasePopup
     {
         private const string GAMERESOURCE_ICON_PATH = "ResIcons/";
+        
         [SerializeField] private Button _btnStart;
         [SerializeField] private Button _btnStop;
         [SerializeField] private Image _progressBar;

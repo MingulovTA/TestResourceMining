@@ -1,12 +1,11 @@
 using App.ServiceLocator.Container;
 using App.Services.PlayerProgress;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace App.Scenes.Game
 {
-    public class CoinsIndicatorView : MonoBehaviour, IPointerClickHandler
+    public class CoinsIndicatorView : MonoBehaviour
     {
         [SerializeField] private Text _text;
         private IPlayerInventory _plProgress;
@@ -29,11 +28,6 @@ namespace App.Scenes.Game
         private void UpdateView()
         {
             _text.text = _plProgress.Coins.ToString();
-        }
-
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            _plProgress.AddCoins(1);
         }
     }
 }

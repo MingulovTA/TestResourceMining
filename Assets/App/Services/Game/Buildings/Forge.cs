@@ -44,7 +44,8 @@ namespace App.Services.Game.Buildings
 
         public void Stop()
         {
-            _coroutineRunner.Stop(_coroutine);
+            if (_isForgeing)
+                _coroutineRunner.Stop(_coroutine);
         }
 
         public Forge(int indexId, ForgeSettings forgeSettings,ICoroutineRunner coroutineRunner, IPlayerInventory playerInventory)
