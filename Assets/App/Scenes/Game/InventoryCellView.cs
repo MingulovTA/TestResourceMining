@@ -41,7 +41,7 @@ namespace App.Scenes.Game
         private void UpdateView()
         {
             int count = _playerInventory.GetResourceCount(_gameResourceId);
-            if (count >= 0)
+            if (count > 0)
             {
                 _text.text = count.ToString();
                 if (!gameObject.activeSelf)

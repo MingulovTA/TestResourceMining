@@ -6,5 +6,7 @@ namespace App.Services.Game.Buildings
     {
         BuildingTypeId BuildingTypeId { get; }
         int IndexId { get; }
+
+        void Stop();
     }
 }

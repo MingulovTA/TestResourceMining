@@ -12,5 +12,6 @@ namespace App.Services.Game
         void AbortGame();
 
         void CompleteGame();
+        void LoadMainMenu();
     }
 }

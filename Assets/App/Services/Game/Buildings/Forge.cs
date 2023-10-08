@@ -8,6 +8,12 @@ namespace App.Services.Game.Buildings
         private ForgeSettings _forgeSettings;
         public BuildingTypeId BuildingTypeId => BuildingTypeId.Forge;
         public int IndexId { get; }
+        
+        public void Stop()
+        {
+            
+        }
+
         public Forge(int indexId, ForgeSettings forgeSettings)
         {
             IndexId = indexId;

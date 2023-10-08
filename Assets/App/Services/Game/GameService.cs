@@ -55,6 +55,10 @@ namespace App.Services.Game
 
         public void AbortGame()
         {
+            foreach (var gameDataBuilding in _gameData.Buildings)
+            foreach (var building in gameDataBuilding.Value)
+                building.Stop();
+            _gameData = null;
             _gameStateId = GameStateId.Menu;
             _sceneService.LoadScene(SceneId.MainMenu);
         }
@@ -64,6 +68,12 @@ namespace App.Services.Game
             _gameStateId = GameStateId.Menu;
             _playerInventory.SetCoins(0);
             _popupService.Open(PopupId.Win, PopupWinCloseHandler);
+        }
+
+        public void LoadMainMenu()
+        {
+            _gameStateId = GameStateId.Menu;
+            _sceneService.LoadScene(SceneId.MainMenu);
         }
 
         private void PopupWinCloseHandler(PopupCloseResult pcr)

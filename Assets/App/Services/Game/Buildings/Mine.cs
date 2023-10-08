@@ -24,6 +24,12 @@ namespace App.Services.Game.Buildings
 
         public BuildingTypeId BuildingTypeId => BuildingTypeId.Mine;
         public int IndexId => _indexId;
+        
+        public void Stop()
+        {
+            _coroutineRunner.Stop(_coroutine);
+        }
+
         public bool IsMining => _isMining;
         public GameResourceId GameResourceId => _gameResourceId;
         public float Progress => _progress;

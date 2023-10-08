@@ -8,6 +8,12 @@ namespace App.Services.Game.Buildings
         private MarketSettings _marketSettings;
         public BuildingTypeId BuildingTypeId => BuildingTypeId.Market;
         public int IndexId { get; }
+        
+        public void Stop()
+        {
+            
+        }
+
         public Market(int indexId, MarketSettings marketSettings)
         {
             IndexId = indexId;
