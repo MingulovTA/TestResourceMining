@@ -1,7 +1,9 @@
-﻿using App.Game.GameResources;
+﻿using System;
+using App.Game.GameResources;
 
 namespace App.Services.PlayerProgress
 {
+    [Serializable]
     public class PlayerInventoryCell
     {
         public GameResourceId GameResourceId;

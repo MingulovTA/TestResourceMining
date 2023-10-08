@@ -18,20 +18,9 @@ namespace App.ServiceLocator
             
             _diContainer.RegisterAsSingle<ICoroutineRunner>(CoroutineRunner());
             _diContainer.RegisterAsSingle<IPopupService>(PopupService());
-            _diContainer.RegisterAsSingle<IPlayerProgressService>(new PlayerProgressService());
+            _diContainer.RegisterAsSingle<IPlayerInventory>(new PlayerInventory());
             _diContainer.RegisterAsSingle<ISceneService>(new SceneService());
             _diContainer.RegisterAsSingle<IGameService>(GameService());
-            
-            
-            
-            
-            /*diContainer.RegisterAsSingle<IPopupRewardAds>(PopupRewardAds());            
-            AppServiceLocator.RegisterAsSingle<IExternalCmdsService>(ExternalCmdsService());
-            AppServiceLocator.RegisterAsSingle<IMuteService>(MuteService());
-            AppServiceLocator.RegisterAsSingle<IAdsService>(AdsService());
-            AppServiceLocator.RegisterAsSingle<ISoundService>(SoundService());
-            AppServiceLocator.RegisterAsSingle<ILocalizationService>(LocalizationService());
-            AppServiceLocator.RegisterAsSingle<ICheatService>(CheatService());*/
         }
         
         private CoroutineRunner CoroutineRunner()
@@ -57,76 +46,12 @@ namespace App.ServiceLocator
         
         private GameService GameService()
         {
-            GameService gameService = new GameService(_diContainer.Resolve<ISceneService>());
+            GameService gameService = new GameService(
+                _diContainer.Resolve<ISceneService>(),
+                _diContainer.Resolve<IPlayerInventory>(),
+                _diContainer.Resolve<IPopupService>(),
+                _diContainer.Resolve<ICoroutineRunner>());
             return gameService;
         }
-
-        /*private static IAdsService AdsService()
-        {
-            if (TargetStore.StoreId == StoreId.STORE_YANDEX)
-                return new YandexAdsService(AppServiceLocator.Resolve<IExternalCmdsService>(), 
-                    AppServiceLocator.Resolve<ICoroutineRunner>(),
-                    AppServiceLocator.Resolve<IMuteService>());
-
-            if (TargetStore.StoreId == StoreId.STORE_DISTRIBUTION)
-                return new GameDistributionAdsService(AppServiceLocator.Resolve<IPopupRewardAds>(),
-                    AppServiceLocator.Resolve<ICoroutineRunner>(),
-                    AppServiceLocator.Resolve<IMuteService>());
-
-            if (TargetStore.StoreId == StoreId.STORE_CRAZY)
-                return new CrazyAdsService(AppServiceLocator.Resolve<IPopupRewardAds>(), AppServiceLocator.Resolve<ICoroutineRunner>());
-            return new DummyAdsService();
-        }
-
-
-
-
-        private static IExternalCmdsService ExternalCmdsService()
-        {
-            GameObject go = new GameObject();
-            Object.DontDestroyOnLoad(go);
-            go.name = "ExternalCmdsService";
-            ExternalCmdsService ecs = go.AddComponent<ExternalCmdsService>();
-            return ecs;
-        }
-
-        private static IMuteService MuteService()
-        {
-            GameObject go = new GameObject();
-            Object.DontDestroyOnLoad(go);
-            go.name = "MuteService";
-            MuteService ecs = go.AddComponent<MuteService>();
-            return ecs;
-        }
-
-        private static ISoundService SoundService()
-        {
-            GameObject go = new GameObject();
-            Object.DontDestroyOnLoad(go);
-            go.name = "SoundService";
-            SoundService ss = go.AddComponent<SoundService>();
-            return ss;
-        }
-
-        private static ILocalizationService LocalizationService()
-        {
-            return new LocalizationService(AppServiceLocator.Resolve<IExternalCmdsService>(),AppServiceLocator.Resolve<ICoroutineRunner>());
-        }
-
-        private static ICheatService CheatService()
-        {
-            var cs = Resources.Load<CheatService>("CheatService");
-            cs = Object.Instantiate(cs);
-            Object.DontDestroyOnLoad(cs);
-            return cs;
-        }
-        private static IPopupRewardAds PopupRewardAds()
-        {
-            var pra = Resources.Load<PopupRewardAds>("PopupRewardAds");
-            pra = Object.Instantiate(pra);
-            Object.DontDestroyOnLoad(pra);
-            pra.Hide();
-            return pra;
-        }*/
     }
 }

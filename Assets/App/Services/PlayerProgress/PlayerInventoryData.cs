@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 
 namespace App.Services.PlayerProgress
 {
-    public class Inventory
+    [Serializable]
+    public class PlayerInventoryData
     {
         public List<PlayerInventoryCell> Cells = new List<PlayerInventoryCell>();
     }

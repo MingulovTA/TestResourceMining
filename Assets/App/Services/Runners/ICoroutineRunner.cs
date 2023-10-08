@@ -8,5 +8,6 @@ namespace App.Services.Runners
     public interface ICoroutineRunner : IService
     {
         Coroutine Run(IEnumerator coroutine);
+        void Stop(Coroutine coroutine);
     }
 }

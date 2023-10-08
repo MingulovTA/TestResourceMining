@@ -9,5 +9,10 @@ namespace App.Services.Runners
         {
             return StartCoroutine(coroutine);
         }
+
+        public void Stop(Coroutine coroutine)
+        {
+            StopCoroutine(coroutine);
+        }
     }
 }

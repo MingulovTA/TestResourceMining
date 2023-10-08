@@ -1,6 +1,6 @@
 namespace App.Services.Popups
 {
-    public class Win : BasePopup
+    public class PopupWin : BasePopup
     {
     }
 }

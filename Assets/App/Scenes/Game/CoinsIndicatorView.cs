@@ -9,10 +9,10 @@ namespace App.Scenes.Game
     public class CoinsIndicatorView : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] private Text _text;
-        private IPlayerProgressService _plProgress;
+        private IPlayerInventory _plProgress;
         private void Awake()
         {
-            _plProgress = AppServiceLocator.Resolve<IPlayerProgressService>();
+            _plProgress = AppServiceLocator.Resolve<IPlayerInventory>();
         }
 
         private void OnEnable()
@@ -28,7 +28,7 @@ namespace App.Scenes.Game
 
         private void UpdateView()
         {
-            _text.text = _plProgress.Data.Coins.ToString();
+            _text.text = _plProgress.Coins.ToString();
         }
 
         public void OnPointerClick(PointerEventData eventData)

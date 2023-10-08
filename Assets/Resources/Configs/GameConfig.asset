@@ -17,9 +17,9 @@ MonoBehaviour:
     Mines:
     - MineTime: 1
       GameResourceIds: 030000000400000005000000
-    - MineTime: 2
-      GameResourceIds: 030000000400000005000000
     - MineTime: 3
+      GameResourceIds: 030000000400000005000000
+    - MineTime: 6
       GameResourceIds: 030000000400000005000000
     Forges:
     - ForgeTime: 3
