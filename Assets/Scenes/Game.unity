@@ -760,7 +760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96241615b3d016e4299a941a94424867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotatingVector: {x: 0, y: 500, z: 0}
+  _rotatingVector: {x: 0, y: 350, z: 0}
 --- !u!114 &1021861051
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -91,7 +91,7 @@ namespace App.Services.Game
             _gameData = new GameData();
             
             _gameData.Buildings.Add(BuildingTypeId.Market,new List<IBuilding>{new Market(0, _gameConfig.Markets[0])});
-            _gameData.Buildings.Add(BuildingTypeId.Forge,new List<IBuilding>{new Forge(0, _gameConfig.Forges[0])});
+            _gameData.Buildings.Add(BuildingTypeId.Forge,new List<IBuilding>{new Forge(0, _gameConfig.Forges[0],_coroutineRunner, _playerInventory)});
             _gameData.Buildings.Add(BuildingTypeId.Mine,new List<IBuilding>());
 
             for (int i = 0; i < minesCount; i++)

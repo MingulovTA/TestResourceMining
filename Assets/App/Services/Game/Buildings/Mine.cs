@@ -25,11 +25,6 @@ namespace App.Services.Game.Buildings
         public BuildingTypeId BuildingTypeId => BuildingTypeId.Mine;
         public int IndexId => _indexId;
         
-        public void Stop()
-        {
-            _coroutineRunner.Stop(_coroutine);
-        }
-
         public bool IsMining => _isMining;
         public GameResourceId GameResourceId => _gameResourceId;
         public float Progress => _progress;
@@ -41,6 +36,11 @@ namespace App.Services.Game.Buildings
             _coroutineRunner = coroutineRunner;
             _playerInventory = playerInventory;
             SelectResource();
+        }
+        
+        public void Stop()
+        {
+            _coroutineRunner.Stop(_coroutine);
         }
 
         public void SelectResource()
@@ -81,7 +81,5 @@ namespace App.Services.Game.Buildings
                 yield return null;
             }
         }
-        
-        
     }
 }

@@ -22,7 +22,7 @@ MonoBehaviour:
     - MineTime: 6
       GameResourceIds: 030000000400000005000000
     Forges:
-    - ForgeTime: 3
+    - ForgeTime: 1
       Forges:
       - Prescription: 0400000005000000
         Result: 2
