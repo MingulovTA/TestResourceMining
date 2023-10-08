@@ -43,7 +43,12 @@ namespace App.Services.Popups
             OnPopupOpened?.Invoke(popupId);
             return basePopup as T;
         }
-        
+
+        public void ClosePopup()
+        {
+            _popupsQueue.Last().Key.Close();
+        }
+
         private void PopupCloseHandler(PopupCloseResult closeResult)
         {
             Object.Destroy(_popupsQueue.Last().Key.gameObject);

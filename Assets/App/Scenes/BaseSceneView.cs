@@ -1,19 +1,23 @@
 ﻿using App.ServiceLocator.Container;
+using App.Services.Game;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace App.Scenes
 {
     public abstract class BaseSceneView : MonoBehaviour
     {
-        private void Start()
+        [SerializeField] private GameStateId _gameStateId;
+
+        protected IGameService _gameService;
+        private void Awake()
         {
-            if (!AppServiceLocator.IsInited)
-                SceneManager.LoadScene(0);
+            _gameService = AppServiceLocator.Resolve<IGameService>();
+            if (_gameService.GameStateId==_gameStateId)
+                Construct();
             else
-                AwakeEntry();
+                _gameService.AbortGame();
         }
 
-        protected  abstract void AwakeEntry();
+        protected  abstract void Construct();
     }
 }

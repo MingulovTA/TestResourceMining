@@ -8,5 +8,6 @@ namespace App.Services.Popups
         void Open(PopupId popupId, Action<PopupCloseResult> closeCallback = null);
 
         T Open<T>(PopupId popupId, Action<PopupCloseResult> closeCallback = null) where T : class;
+        void ClosePopup();
     }
 }

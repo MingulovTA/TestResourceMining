@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 938f54572993b7b419cd41f86af678f1, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: 
+  GameConfig:
+    CoinsForWin: 100
+    Mines:
+    - MineTime: 1
+      GameResourceIds: 030000000400000005000000
+    - MineTime: 2
+      GameResourceIds: 030000000400000005000000
+    - MineTime: 3
+      GameResourceIds: 030000000400000005000000
+    Forges:
+    - ForgeTime: 3
+      Forges:
+      - Prescription: 0400000005000000
+        Result: 2
+      - Prescription: 0400000003000000
+        Result: 1
+      - Prescription: 0500000003000000
+        Result: 0
+    Markets:
+    - Price:
+      - GameResourceId: 0
+        Price: 100
+      - GameResourceId: 1
+        Price: 200
+      - GameResourceId: 2
+        Price: 300

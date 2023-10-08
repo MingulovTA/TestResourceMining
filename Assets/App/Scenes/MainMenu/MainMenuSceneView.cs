@@ -1,4 +1,5 @@
 using App.ServiceLocator.Container;
+using App.Services.Game;
 using App.Services.Popups;
 using UnityEngine;
 
@@ -6,6 +7,10 @@ namespace App.Scenes.MainMenu
 {
     public class MainMenuSceneView : BaseSceneView
     {
+        [SerializeField] private RadioGroupView _rgvMines;
+        
+        private IGameService _gameService;
+        
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -21,9 +26,14 @@ namespace App.Scenes.MainMenu
                 AppServiceLocator.Resolve<IPopupService>().Open(PopupId.Win);
         }
 
-        protected override void AwakeEntry()
+        protected override void Construct()
         {
-        
+            _gameService = AppServiceLocator.Resolve<IGameService>();
+        }
+
+        public void BtnStartClickHandler()
+        {
+            _gameService.StartGame(_rgvMines.CurrentItemIndex);
         }
     }
 }

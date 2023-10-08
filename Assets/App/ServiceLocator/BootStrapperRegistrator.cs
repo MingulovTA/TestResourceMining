@@ -1,21 +1,31 @@
 using App.ServiceLocator.Container;
 using App.ServiceLocator.Interfaces;
+using App.Services.Game;
+using App.Services.PlayerProgress;
 using App.Services.Popups;
 using App.Services.Runners;
+using App.Services.Scenes;
 using UnityEngine;
 
 namespace App.ServiceLocator
 {
     public class BootStrapperRegistrator: IBootStrapperRegistrator
     {
+        private DiContainer _diContainer;
         public void InstallBindings(DiContainer diContainer)
         {
-            diContainer.RegisterAsSingle<ICoroutineRunner>(CoroutineRunner());
-            diContainer.RegisterAsSingle<IPopupService>(PopupService());
+            _diContainer = diContainer;
+            
+            _diContainer.RegisterAsSingle<ICoroutineRunner>(CoroutineRunner());
+            _diContainer.RegisterAsSingle<IPopupService>(PopupService());
+            _diContainer.RegisterAsSingle<IPlayerProgressService>(new PlayerProgressService());
+            _diContainer.RegisterAsSingle<ISceneService>(new SceneService());
+            _diContainer.RegisterAsSingle<IGameService>(GameService());
             
             
-            /*diContainer.RegisterAsSingle<IPopupRewardAds>(PopupRewardAds());
             
+            
+            /*diContainer.RegisterAsSingle<IPopupRewardAds>(PopupRewardAds());            
             AppServiceLocator.RegisterAsSingle<IExternalCmdsService>(ExternalCmdsService());
             AppServiceLocator.RegisterAsSingle<IMuteService>(MuteService());
             AppServiceLocator.RegisterAsSingle<IAdsService>(AdsService());
@@ -24,7 +34,7 @@ namespace App.ServiceLocator
             AppServiceLocator.RegisterAsSingle<ICheatService>(CheatService());*/
         }
         
-        private ICoroutineRunner CoroutineRunner()
+        private CoroutineRunner CoroutineRunner()
         {
             GameObject go = new GameObject();
             Object.DontDestroyOnLoad(go);
@@ -33,7 +43,7 @@ namespace App.ServiceLocator
             return cr;
         }
 
-        private IPopupService PopupService()
+        private PopupService PopupService()
         {
             string resPath = PopupContainer.POPUPS_CONTAINER_RESOURCE_PATH;
             PopupContainer popupContainerPrefab = Resources.Load<PopupContainer>(resPath);
@@ -41,8 +51,14 @@ namespace App.ServiceLocator
             Object.DontDestroyOnLoad(popupContainerInstance);
             popupContainerInstance.name = "PopupContainer";
             
-            IPopupService popupService = new PopupService(popupContainerInstance);
+            PopupService popupService = new PopupService(popupContainerInstance);
             return popupService;
+        }
+        
+        private GameService GameService()
+        {
+            GameService gameService = new GameService(_diContainer.Resolve<ISceneService>());
+            return gameService;
         }
 
         /*private static IAdsService AdsService()
